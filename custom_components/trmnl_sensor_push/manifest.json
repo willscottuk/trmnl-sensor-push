@@ -5,5 +5,6 @@
   "documentation": "https://github.com/gitstua/trmnl_sensor_push",
   "requirements": ["requests"],
   "dependencies": [],
-  "codeowners": ["@gitstua"]
+  "codeowners": ["@gitstua"],
+  "config_flow": true
 } 

@@ -1,6 +1,6 @@
 # TRMNL Sensor Push for Home Assistant
 
-This integration pushes state changes for entities tagged with "TRMNL" to a specified endpoint.
+This integration pushes state changes for entities tagged with "TRMNL" to your TRMNL webhook endpoint.
 
 ## Installation
 
@@ -15,11 +15,24 @@ This integration pushes state changes for entities tagged with "TRMNL" to a spec
 
 ## Configuration
 
-No configuration is needed. The integration will automatically start monitoring for state changes of entities with the "TRMNL" tag.
+1. In Home Assistant, go to Configuration → Integrations
+2. Click "+ ADD INTEGRATION" and search for "TRMNL Sensor Push"
+3. Enter your TRMNL webhook URL
+   - This URL should look like: `https://usetrmnl.com/api/custom_plugins/AAAA-d000-4000-8000-000000000000`
+   - You can get this URL from your TRMNL custom plugin settings
 
 ## Usage
 
-Add the "TRMNL" tag to any entity you want to monitor. When the state of these entities changes, the new state will be pushed to the configured endpoint.
+1. Add the "TRMNL" tag to any entity you want to monitor
+2. When the state of these entities changes, the new state will be pushed to your TRMNL webhook
+3. Updates are rate-limited to once every 5 minutes per entity to prevent overwhelming the endpoint
+
+## Troubleshooting
+
+Check the Home Assistant logs for any error messages. Common issues:
+- Invalid webhook URL
+- Network connectivity problems
+- Rate limiting (updates are limited to once every 5 minutes per entity)
 
 ## License
 
