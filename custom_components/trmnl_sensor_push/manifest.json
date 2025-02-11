@@ -1,0 +1,9 @@
+{
+  "domain": "trmnl_sensor_push",
+  "name": "TRMNL Sensor Push",
+  "version": "1.0.0",
+  "documentation": "https://github.com/gitstua/trmnl_sensor_push",
+  "requirements": ["requests"],
+  "dependencies": [],
+  "codeowners": ["@gitstua"]
+} 

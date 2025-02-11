@@ -1,0 +1,1 @@
+from .trmnl_sensor_push import setup 
