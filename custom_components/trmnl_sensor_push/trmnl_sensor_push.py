@@ -31,6 +31,7 @@ def setup_platform(hass: HomeAssistant, entry: ConfigEntry) -> None:
     """Set up the TRMNL Sensor Push platform."""
     url = entry.data[CONF_URL]
     
+
     # Store last update times for each entity
     last_updates = {}
     
@@ -49,6 +50,12 @@ def setup_platform(hass: HomeAssistant, entry: ConfigEntry) -> None:
                     f"Skipping update for {entity_id}: Too soon since last update"
                 )
                 return
+
+        # if url is not set, raise an error
+        if not url:
+            _LOGGER.error("URL is not set")
+            return
+
 
         if new_state and "TRMNL" in new_state.attributes.get("tags", []):
             # Create the payload in the required format
