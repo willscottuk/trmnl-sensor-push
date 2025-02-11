@@ -1,10 +1,12 @@
 {
   "domain": "trmnl_sensor_push",
   "name": "TRMNL Sensor Push",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "documentation": "https://github.com/gitstua/trmnl_sensor_push",
   "requirements": ["requests"],
   "dependencies": [],
   "codeowners": ["@gitstua"],
-  "config_flow": true
+  "config_flow": true,
+  "iot_class": "cloud_push",
+  "issue_tracker": "https://github.com/gitstua/trmnl_sensor_push/issues"
 } 
