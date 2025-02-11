@@ -9,6 +9,12 @@ import homeassistant.helpers.config_validation as cv
 
 from .const import DOMAIN, CONF_URL, DEFAULT_URL
 
+STEP_USER_DATA_SCHEMA = vol.Schema(
+    {
+        vol.Required(CONF_URL, default=DEFAULT_URL): cv.string,
+    }
+)
+
 class TRMNLSensorPushConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for TRMNL Sensor Push."""
 
@@ -30,10 +36,6 @@ class TRMNLSensorPushConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         return self.async_show_form(
             step_id="user",
-            data_schema=vol.Schema(
-                {
-                    vol.Required(CONF_URL, default=DEFAULT_URL): cv.string,
-                }
-            ),
+            data_schema=STEP_USER_DATA_SCHEMA,
             errors=errors,
         ) 

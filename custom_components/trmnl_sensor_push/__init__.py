@@ -3,7 +3,6 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 
 from .const import DOMAIN
-from .trmnl_sensor_push import async_setup_entry, async_unload_entry
 
 async def async_setup(hass: HomeAssistant, config: dict) -> bool:
     """Set up the TRMNL Sensor Push component."""
@@ -11,8 +10,21 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up TRMNL Sensor Push from a config entry."""
-    return await async_setup_entry(hass, entry)
+    hass.data.setdefault(DOMAIN, {})
+    hass.data[DOMAIN][entry.entry_id] = entry.data
+
+    await hass.async_add_executor_job(
+        setup_integration, hass, entry
+    )
+    return True
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
-    return await async_unload_entry(hass, entry) 
+    if DOMAIN in hass.data:
+        hass.data[DOMAIN].pop(entry.entry_id)
+    return True
+
+def setup_integration(hass: HomeAssistant, entry: ConfigEntry) -> None:
+    """Set up the integration."""
+    from .trmnl_sensor_push import setup_platform
+    setup_platform(hass, entry) 
