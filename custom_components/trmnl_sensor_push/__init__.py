@@ -21,7 +21,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
     if DOMAIN in hass.data:
-        hass.data[DOMAIN].pop(entry.entry_id)
+        if 'listener' in hass.data[DOMAIN]:
+            hass.data[DOMAIN]['listener']()  # Remove the listener
+        hass.data.pop(DOMAIN)
     return True
 
 def setup_integration(hass: HomeAssistant, entry: ConfigEntry) -> None:

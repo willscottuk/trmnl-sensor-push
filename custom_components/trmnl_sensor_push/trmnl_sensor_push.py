@@ -31,7 +31,6 @@ def setup_platform(hass: HomeAssistant, entry: ConfigEntry) -> None:
     """Set up the TRMNL Sensor Push platform."""
     url = entry.data[CONF_URL]
     
-
     # Store last update times for each entity
     last_updates = {}
     
@@ -56,7 +55,6 @@ def setup_platform(hass: HomeAssistant, entry: ConfigEntry) -> None:
             _LOGGER.error("URL is not set")
             return
 
-
         if new_state and "TRMNL" in new_state.attributes.get("tags", []):
             # Create the payload in the required format
             payload = {
@@ -76,12 +74,13 @@ def setup_platform(hass: HomeAssistant, entry: ConfigEntry) -> None:
                 _LOGGER.error(f"Failed to push data for {entity_id}: {e}")
 
     # Remove existing listener if exists
-    if DOMAIN in hass.data:
-        hass.bus.async_remove_listener(EVENT_STATE_CHANGED, hass.data[DOMAIN])
+    if DOMAIN in hass.data and 'listener' in hass.data[DOMAIN]:
+        hass.data[DOMAIN]['listener']()  # Call the remove function
     
-    # Store the listener function so we can remove it later
-    hass.data[DOMAIN] = state_change_listener
-    hass.bus.async_listen(EVENT_STATE_CHANGED, state_change_listener)
+    # Store the listener remove function
+    hass.data[DOMAIN] = {
+        'listener': hass.bus.async_listen(EVENT_STATE_CHANGED, state_change_listener)
+    }
 
     _LOGGER.info("TRMNL Sensor Push integration loaded with URL: %s", url)
 
