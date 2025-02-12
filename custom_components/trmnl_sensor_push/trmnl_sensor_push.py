@@ -74,7 +74,10 @@ def setup_platform(hass: HomeAssistant, entry: ConfigEntry) -> None:
                 _LOGGER.error(f"Failed to push data for {entity_id}: {e}")
 
     # Store the listener function
-    hass.data[DOMAIN]['listener'] = hass.bus.async_listen(EVENT_STATE_CHANGED, state_change_listener)
+    hass.data[DOMAIN][entry.entry_id]['listener'] = hass.bus.async_listen(
+        EVENT_STATE_CHANGED, 
+        state_change_listener
+    )
 
     _LOGGER.info("TRMNL Sensor Push integration loaded with URL: %s", url)
 
