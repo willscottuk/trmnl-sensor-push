@@ -1,7 +1,7 @@
 {
   "domain": "trmnl_sensor_push",
   "name": "TRMNL Sensor Push",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "documentation": "https://github.com/gitstua/trmnl-hacs",
   "requirements": ["requests"],
   "dependencies": [],
