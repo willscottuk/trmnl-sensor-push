@@ -1,10 +1,18 @@
+"""The TRMNL Sensor Push integration."""
 from __future__ import annotations
 
+import voluptuous as vol
+
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
+import homeassistant.helpers.config_validation as cv
 
 from .const import DOMAIN
 from .trmnl_sensor_push import setup_platform
+
+# Since this integration only supports config entries, use this schema
+CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 
 async def async_setup(hass: HomeAssistant, config: dict) -> bool:
     """Set up the TRMNL Sensor Push component."""

@@ -1,12 +1,12 @@
 {
   "domain": "trmnl_sensor_push",
   "name": "TRMNL Sensor Push",
-  "version": "0.1.2",
-  "documentation": "https://github.com/gitstua/trmnl-hacs",
-  "requirements": ["requests"],
-  "dependencies": [],
   "codeowners": ["@gitstua"],
   "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/gitstua/trmnl-hacs",
   "iot_class": "cloud_push",
-  "issue_tracker": "https://github.com/gitstua/trmnl-hacs/issues"
+  "issue_tracker": "https://github.com/gitstua/trmnl-hacs/issues",
+  "requirements": ["requests"],
+  "version": "0.1.2"
 } 
