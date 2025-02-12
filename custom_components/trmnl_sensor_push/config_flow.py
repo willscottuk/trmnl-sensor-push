@@ -1,14 +1,8 @@
-"""Config flow for TRMNL Sensor Push integration."""
-from __future__ import annotations
-
-from typing import Any
-import voluptuous as vol
-
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
+import voluptuous as vol
 import homeassistant.helpers.config_validation as cv
-from homeassistant.config_entries import ConfigEntry, OptionsFlow
 
 from .const import DOMAIN, CONF_URL, DEFAULT_URL
 
@@ -42,16 +36,16 @@ class TRMNLSensorPushConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             data_schema=STEP_USER_DATA_SCHEMA,
             errors=errors,
         )
-    
+
     @staticmethod
     @callback
     def async_get_options_flow(
         config_entry: ConfigEntry,
-    ) -> TRMNLSensorPushOptionsFlow:
+    ) -> config_entries.OptionsFlow:
         """Get the options flow for this handler."""
         return TRMNLSensorPushOptionsFlow(config_entry)
 
-class TRMNLSensorPushOptionsFlow(OptionsFlow):
+class TRMNLSensorPushOptionsFlow(config_entries.OptionsFlow):
     """Handle TRMNL Sensor Push options."""
 
     def __init__(self, config_entry: ConfigEntry) -> None:
@@ -85,4 +79,4 @@ class TRMNLSensorPushOptionsFlow(OptionsFlow):
             step_id="init",
             data_schema=schema,
             errors=errors,
-        ) 
+        )

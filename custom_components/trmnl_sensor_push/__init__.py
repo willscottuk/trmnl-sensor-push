@@ -1,4 +1,3 @@
-"""The TRMNL Sensor Push integration."""
 from __future__ import annotations
 
 from homeassistant.config_entries import ConfigEntry
@@ -38,4 +37,4 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
     """Reload config entry."""
     await async_unload_entry(hass, entry)
-    await async_setup_entry(hass, entry) 
+    await async_setup_entry(hass, entry)

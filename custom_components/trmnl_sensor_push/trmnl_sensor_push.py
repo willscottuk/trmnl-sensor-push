@@ -1,7 +1,7 @@
 """The TRMNL Sensor Push integration."""
 import requests
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.config_entries import ConfigEntry
@@ -49,11 +49,6 @@ def setup_platform(hass: HomeAssistant, entry: ConfigEntry) -> None:
                     f"Skipping update for {entity_id}: Too soon since last update"
                 )
                 return
-
-        # if url is not set, raise an error
-        if not url:
-            _LOGGER.error("URL is not set")
-            return
 
         if new_state and "TRMNL" in new_state.attributes.get("tags", []):
             # Create the payload in the required format
