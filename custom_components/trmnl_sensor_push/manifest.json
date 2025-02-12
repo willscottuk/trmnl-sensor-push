@@ -8,5 +8,5 @@
   "iot_class": "cloud_push",
   "issue_tracker": "https://github.com/gitstua/trmnl-hacs/issues",
   "requirements": ["requests"],
-  "version": "0.1.2"
+  "version": "0.1.3"
 } 
