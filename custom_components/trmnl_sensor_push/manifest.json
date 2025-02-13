@@ -9,5 +9,6 @@
   "homekit": {},
   "dependencies": [],
   "codeowners": ["@yourusername"],
-  "version": "0.2.0"
+  "version": "0.2.0",
+  "iot_class": "cloud_push"
 } 
