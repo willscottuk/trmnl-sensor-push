@@ -13,6 +13,8 @@ This integration pushes state changes for entities tagged with "TRMNL" to your T
 1. Copy the `custom_components/trmnl_sensor_push` directory to your Home Assistant's `custom_components` directory
 2. Restart Home Assistant
 
+Installation [video](https://screen.studio/share/LFguEhAJ)
+
 ## Configuration
 
 1. In Home Assistant, go to Configuration → Integrations
@@ -33,6 +35,8 @@ Check the Home Assistant logs for any error messages. Common issues:
 - Invalid webhook URL
 - Network connectivity problems
 - Rate limiting (updates are limited to once every 5 minutes per entity)
+- Ensure you have the integration enabled in Home Assistant
+- Ensure you have the TRMNL label created and assigned to some entities in Home Assistant
 
 ## License
 
