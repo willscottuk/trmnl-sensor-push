@@ -1,4 +1,4 @@
-"""The Terminal Sensor Push integration."""
+"""The TRMNL Entity Push integration."""
 from __future__ import annotations
 
 import logging
@@ -25,18 +25,22 @@ def create_entity_payload(state) -> dict:
     """Create the payload for a single entity."""
     payload = {
         "name": state.attributes.get('friendly_name', state.entity_id),
-        "value": state.state
+        "value": state.state,
+        "device_class": state.attributes.get('device_class', None),
+        "unit_of_measurement": state.attributes.get('unit_of_measurement', None),
+        "icon": state.attributes.get('icon', None),
+        "attributes": state.attributes
     }
     _LOGGER.debug("TRMNL: Created payload for %s: %s", state.entity_id, payload)
     return payload
 
 async def async_setup(hass: HomeAssistant, config: dict) -> bool:
-    """Set up the Terminal Sensor Push component."""
-    _LOGGER.debug("TRMNL: Setting up Terminal Sensor Push component")
+    """Set up the TRMNL Entity Push component."""
+    _LOGGER.debug("TRMNL: Setting up TRMNL Entity Push component")
     return True
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up TRMNL Sensor Push from a config entry."""
+    """Set up TRMNL Entity Push from a config entry."""
     _LOGGER.debug("TRMNL: Setting up config entry")
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][entry.entry_id] = {}
@@ -58,10 +62,17 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         _LOGGER.debug("TRMNL: Starting entity processing")
         # Get all entities with the TRMNL label
         trmnl_entities = get_trmnl_entities()
-        
+
+
+        # if 0 entities found log error, return
+        if len(trmnl_entities) == 0:
+            _LOGGER.error("TRMNL: No entities found with TRMNL label")
+            return
+
         # Log the number of TRMNL entities found
         _LOGGER.info("TRMNL: Found %d entities with TRMNL label", len(trmnl_entities))
         
+
         # Create payload for each entity
         entities_payload = []
         for entity_id in trmnl_entities:

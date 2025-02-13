@@ -1,4 +1,4 @@
-"""Config flow for Terminal Sensor Push integration."""
+"""Config flow for TRMNL Entity Push integration."""
 from __future__ import annotations
 
 import voluptuous as vol
@@ -20,10 +20,10 @@ async def validate_input(hass: HomeAssistant, data: dict[str, str]) -> dict[str,
     # TODO: Validate the URL format and possibly test the webhook endpoint
     
     # If validation passes, return the validated data
-    return {"title": "Terminal Sensor Push"}
+    return {"title": "TRMNL Entity Push"}
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    """Handle a config flow for Terminal Sensor Push."""
+    """Handle a config flow for TRMNL Entity Push."""
 
     VERSION = 1
 

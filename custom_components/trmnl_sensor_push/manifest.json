@@ -1,6 +1,6 @@
 {
   "domain": "trmnl_sensor_push",
-  "name": "Terminal Sensor Push",
+  "name": "TRMNL Entity Push",
   "config_flow": true,
   "documentation": "https://github.com/yourusername/ha-trmnl-sensor-push",
   "requirements": [],
