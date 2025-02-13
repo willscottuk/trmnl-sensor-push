@@ -8,7 +8,7 @@ import aiohttp
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
-from homeassistant.core import HomeAssistant
+from homeassistant.core import HomeAssistant, callback
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.template import Template
@@ -58,12 +58,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         _LOGGER.debug("TRMNL: Template rendered result: %s", result)
         return result
 
-    async def process_trmnl_entities():
+    async def process_trmnl_entities(*_):
         """Find and process entities with TRMNL label."""
         _LOGGER.debug("TRMNL: Starting entity processing")
         # Get all entities with the TRMNL label
         trmnl_entities = get_trmnl_entities()
-
 
         # if 0 entities found log error, return
         if len(trmnl_entities) == 0:
@@ -72,7 +71,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
         # Log the number of TRMNL entities found
         _LOGGER.info("TRMNL: Found %d entities with TRMNL label", len(trmnl_entities))
-        
 
         # Create payload for each entity
         entities_payload = []
@@ -111,7 +109,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     _LOGGER.debug("TRMNL: Setting up periodic timer for %d seconds", MIN_TIME_BETWEEN_UPDATES)
     remove_timer = async_track_time_interval(
         hass,
-        lambda now: hass.async_create_task(process_trmnl_entities()),
+        process_trmnl_entities,
         timedelta(seconds=MIN_TIME_BETWEEN_UPDATES)
     )
 
