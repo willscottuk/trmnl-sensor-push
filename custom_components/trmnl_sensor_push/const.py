@@ -1,4 +1,4 @@
-"""Constants for the TRMNL Sensor Push integration."""
+"""Constants for the Terminal Sensor Push integration."""
 DOMAIN = "trmnl_sensor_push"
 CONF_URL = "url"
 DEFAULT_URL = "https://usetrmnl.com/api/custom_plugins/XXXX-XXXX-XXXX-XXXX"  # Example URL

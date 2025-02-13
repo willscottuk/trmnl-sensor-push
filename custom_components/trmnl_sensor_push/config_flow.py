@@ -1,35 +1,47 @@
-from homeassistant import config_entries
-from homeassistant.core import callback
-from homeassistant.data_entry_flow import FlowResult
-import voluptuous as vol
-import homeassistant.helpers.config_validation as cv
+"""Config flow for Terminal Sensor Push integration."""
+from __future__ import annotations
 
-from .const import DOMAIN, CONF_URL, DEFAULT_URL
+import voluptuous as vol
+from homeassistant import config_entries
+from homeassistant.core import HomeAssistant
+from homeassistant.data_entry_flow import FlowResult
+from homeassistant.exceptions import HomeAssistantError
+
+from .const import DOMAIN, CONF_URL
 
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
-        vol.Required(CONF_URL, default=DEFAULT_URL): cv.string,
+        vol.Required(CONF_URL): str,
     }
 )
 
-class TRMNLSensorPushConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    """Handle a config flow for TRMNL Sensor Push."""
+async def validate_input(hass: HomeAssistant, data: dict[str, str]) -> dict[str, str]:
+    """Validate the user input allows us to connect."""
+    # TODO: Validate the URL format and possibly test the webhook endpoint
+    
+    # If validation passes, return the validated data
+    return {"title": "Terminal Sensor Push"}
+
+class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+    """Handle a config flow for Terminal Sensor Push."""
 
     VERSION = 1
 
     async def async_step_user(
-        self, user_input: dict[str, Any] | None = None
+        self, user_input: dict[str, str] | None = None
     ) -> FlowResult:
         """Handle the initial step."""
-        errors = {}
+        errors: dict[str, str] = {}
 
         if user_input is not None:
-            return self.async_create_entry(
-                title="TRMNL Sensor Push",
-                data={
-                    CONF_URL: user_input[CONF_URL],
-                }
-            )
+            try:
+                info = await validate_input(self.hass, user_input)
+            except CannotConnect:
+                errors["base"] = "cannot_connect"
+            except Exception:  # pylint: disable=broad-except
+                errors["base"] = "unknown"
+            else:
+                return self.async_create_entry(title=info["title"], data=user_input)
 
         return self.async_show_form(
             step_id="user",
@@ -37,46 +49,5 @@ class TRMNLSensorPushConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             errors=errors,
         )
 
-    @staticmethod
-    @callback
-    def async_get_options_flow(
-        config_entry: ConfigEntry,
-    ) -> config_entries.OptionsFlow:
-        """Get the options flow for this handler."""
-        return TRMNLSensorPushOptionsFlow(config_entry)
-
-class TRMNLSensorPushOptionsFlow(config_entries.OptionsFlow):
-    """Handle TRMNL Sensor Push options."""
-
-    def __init__(self, config_entry: ConfigEntry) -> None:
-        """Initialize options flow."""
-        self.config_entry = config_entry
-
-    async def async_step_init(
-        self, user_input: dict[str, Any] | None = None
-    ) -> FlowResult:
-        """Manage TRMNL Sensor Push options."""
-        errors: dict[str, str] = {}
-
-        if user_input is not None:
-            return self.async_create_entry(
-                title="",
-                data={
-                    CONF_URL: user_input[CONF_URL],
-                }
-            )
-
-        schema = vol.Schema(
-            {
-                vol.Required(
-                    CONF_URL,
-                    default=self.config_entry.data.get(CONF_URL, DEFAULT_URL),
-                ): cv.string,
-            }
-        )
-
-        return self.async_show_form(
-            step_id="init",
-            data_schema=schema,
-            errors=errors,
-        )
+class CannotConnect(HomeAssistantError):
+    """Error to indicate we cannot connect."""

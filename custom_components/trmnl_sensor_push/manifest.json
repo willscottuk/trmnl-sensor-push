@@ -1,12 +1,13 @@
 {
   "domain": "trmnl_sensor_push",
-  "name": "TRMNL Sensor Push",
-  "codeowners": ["@gitstua"],
+  "name": "Terminal Sensor Push",
   "config_flow": true,
+  "documentation": "https://github.com/yourusername/ha-trmnl-sensor-push",
+  "requirements": [],
+  "ssdp": [],
+  "zeroconf": [],
+  "homekit": {},
   "dependencies": [],
-  "documentation": "https://github.com/gitstua/trmnl-hacs",
-  "iot_class": "cloud_push",
-  "issue_tracker": "https://github.com/gitstua/trmnl-hacs/issues",
-  "requirements": ["requests"],
-  "version": "0.1.3"
+  "codeowners": ["@yourusername"],
+  "version": "0.1.0"
 } 

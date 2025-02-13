@@ -5,3 +5,4 @@ scripts/
 .vscode
 .idea
 .pytest_cache
+.env
