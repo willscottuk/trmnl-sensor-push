@@ -1,6 +1,11 @@
 # TRMNL Sensor Push for Home Assistant
 
-This integration pushes state changes for entities tagged with "TRMNL" to your TRMNL webhook endpoint.
+This Home Assistant integration pushes state changes for entities tagged with "TRMNL" to your TRMNL webhook endpoint.
+
+This allows you to view the entity states in on your TRMNL device.
+
+## Limitations
+Because the e-ink display is optimized for long battery life, updates will be more than 15 minutes out of date typically.
 
 ## Installation
 
