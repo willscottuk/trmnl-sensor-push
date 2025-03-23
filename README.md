@@ -32,14 +32,14 @@ Installation [video](https://screen.studio/share/LFguEhAJ)
 
 1. Add the "TRMNL" tag to any entity you want to monitor
 2. When the state of these entities changes, the new state will be pushed to your TRMNL webhook
-3. Updates are rate-limited to once every 5 minutes per entity to prevent overwhelming the endpoint
+3. Updates are rate-limited to once every 30 minutes per entity to prevent overwhelming the endpoint
 
 ## Troubleshooting
 
 Check the Home Assistant logs for any error messages. Common issues:
 - Invalid webhook URL
 - Network connectivity problems
-- Rate limiting (updates are limited to once every 5 minutes per entity)
+- Rate limiting (updates are limited to once every 30 minutes per entity)
 - Ensure you have the integration enabled in Home Assistant
 - Ensure you have the TRMNL label created and assigned to some entities in Home Assistant
 
