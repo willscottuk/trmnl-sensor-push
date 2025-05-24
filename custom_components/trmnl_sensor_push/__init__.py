@@ -21,10 +21,9 @@ _LOGGER = logging.getLogger(__name__)
 # Since this integration only supports config entries, use this schema
 CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 
-def create_entity_payload(state) -> dict:
+def create_entity_payload(state):
     """Create the payload for a single entity."""
-    entity_key = state.entity_id.replace(".", "_") + "_value"
-    payload = {entity_key: state.state}
+    payload = state.entity_id + "_value": state.state
     
     _LOGGER.debug("TRMNL: Created payload for %s: %s", state.entity_id, payload)
     return payload
