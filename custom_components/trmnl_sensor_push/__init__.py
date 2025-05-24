@@ -67,7 +67,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         _LOGGER.info("TRMNL: Found %d entities with TRMNL label", len(trmnl_entities))
 
         # Create payload for each entity
-        entities_payload = []
+        entities_payload = {}
         for entity_id in trmnl_entities:
             state = hass.states.get(entity_id)
             if state:
