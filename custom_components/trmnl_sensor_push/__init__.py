@@ -21,9 +21,10 @@ _LOGGER = logging.getLogger(__name__)
 # Since this integration only supports config entries, use this schema
 CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 
-def create_entity_payload(state):
+def create_entity_payload(state) -> dict:
     """Create the payload for a single entity."""
-    payload = 'state.entity_id + "_value": state.state'
+    entity_key = state.entity_id.replace(".", "_") + "_value"
+    payload = {entity_key: state.state}
     
     _LOGGER.debug("TRMNL: Created payload for %s: %s", state.entity_id, payload)
     return payload
@@ -71,7 +72,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             state = hass.states.get(entity_id)
             if state:
                 _LOGGER.debug("TRMNL: Processing entity: %s", entity_id)
-                entities_payload.append(create_entity_payload(state))
+                for key, value in create_entity_payload(state).items():
+                    entities_payload[key] = value
 
         # Send to TRMNL webhook if we have entities
         if entities_payload:
