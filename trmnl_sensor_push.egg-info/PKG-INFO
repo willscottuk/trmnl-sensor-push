@@ -1,0 +1,6 @@
+Metadata-Version: 2.2
+Name: trmnl_sensor_push
+Version: 1.0.0
+License-File: LICENSE
+Requires-Dist: requests
+Dynamic: requires-dist
