@@ -23,7 +23,8 @@ CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 
 def create_entity_payload(state) -> dict:
     """Create the payload for a single entity."""
-    payload = {state.entity_id + "_value": state.state}
+    entity_key = state.entity_id.replace(".", "_") + "_value"
+    payload = {entity_key: state.state}
     
     _LOGGER.debug("TRMNL: Created payload for %s: %s", state.entity_id, payload)
     return payload
